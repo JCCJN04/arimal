@@ -1,0 +1,29 @@
+# robots.txt — Veterinaria Arimal
+# https://arimal.com.mx
+
+User-agent: *
+Allow: /
+
+# Block build artifacts
+Disallow: /dist/
+Disallow: /node_modules/
+Disallow: /src/
+
+# Allow major AI crawlers (helps with AI search visibility)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap
+Sitemap: https://arimal.com.mx/sitemap.xml

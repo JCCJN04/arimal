@@ -27,50 +27,7 @@ function App() {
             </main>
             <Footer />
             <FloatingButtons />
-
-            {/* Schema.org markup for LocalBusiness */}
-            <script type="application/ld+json">
-                {JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "VeterinaryCare",
-                    "name": "Veterinaria Arimal",
-                    "image": "https://arimal.com.mx/logo.png",
-                    "@id": "https://arimal.com.mx",
-                    "url": "https://arimal.com.mx",
-                    "telephone": "8127711270",
-                    "address": {
-                        "@type": "PostalAddress",
-                        "streetAddress": "Av. Cumbres Elite 299-Loc. 106, Sector Villas",
-                        "addressLocality": "Monterrey",
-                        "addressRegion": "NL",
-                        "postalCode": "64349",
-                        "addressCountry": "MX"
-                    },
-                    "geo": {
-                        "@type": "GeoCoordinates",
-                        "latitude": 25.756789,
-                        "longitude": -100.412345
-                    },
-                    "openingHoursSpecification": {
-                        "@type": "OpeningHoursSpecification",
-                        "dayOfWeek": [
-                            "Monday",
-                            "Tuesday",
-                            "Wednesday",
-                            "Thursday",
-                            "Friday",
-                            "Saturday"
-                        ],
-                        "opens": "09:00",
-                        "closes": "19:00"
-                    },
-                    "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": "4.8",
-                        "reviewCount": "50"
-                    }
-                })}
-            </script>
+            {/* Schema.org JSON-LD is rendered in index.html <head> for immediate crawling */}
         </div>
     )
 }

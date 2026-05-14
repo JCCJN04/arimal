@@ -1,252 +1,259 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingBag, ChevronRight } from 'lucide-react';
+import { ShoppingBag, ArrowRight } from 'lucide-react';
+
+const products = [
+  {
+    name: 'Alimento Medics Canino',
+    category: 'Salud Nutricional',
+    price: '$850',
+    image: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&q=80&w=800',
+    tag: 'Recomendado',
+    tagColor: '#0D9488',
+  },
+  {
+    name: 'Kit de Higiene Premium',
+    category: 'Estética',
+    price: '$420',
+    image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800',
+    tag: 'Best Seller',
+    tagColor: '#F97316',
+  },
+  {
+    name: 'Suplementos Vitality',
+    category: 'Bienestar',
+    price: '$580',
+    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800',
+    tag: 'Nuevo',
+    tagColor: '#7C3AED',
+  },
+  {
+    name: 'Juguetes Interactivos Pro',
+    category: 'Diversión',
+    price: '$310',
+    image: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&q=80&w=800',
+    tag: 'Popular',
+    tagColor: '#2563EB',
+  },
+];
 
 const Products = () => {
-  const products = [
-    {
-      name: 'Alimento Medics Canino',
-      category: 'Salud Nutricional',
-      price: '$850',
-      image: 'https://images.unsplash.com/photo-1568640347023-a616a30bc3bd?auto=format&fit=crop&q=80&w=2070',
-      tag: 'Recomendado'
-    },
-    {
-      name: 'Kit de Higiene Premium',
-      category: 'Estética',
-      price: '$420',
-      image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=2071',
-      tag: 'Best Seller'
-    },
-    {
-      name: 'Suplementos Vitality',
-      category: 'Bienestar',
-      price: '$580',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=2030',
-      tag: 'Nuevo'
-    },
-    {
-      name: 'Juguetes Interactivos Pro',
-      category: 'Diversión',
-      price: '$310',
-      image: 'https://images.unsplash.com/photo-1583512603806-077998240c7a?auto=format&fit=crop&q=80&w=2070',
-      tag: 'Popular'
-    }
-  ];
-
   return (
     <section id="productos" className="section products">
       <div className="container">
-        <div className="section-header">
-          <motion.h2
-            className="section-title"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            Nuestros Productos
-          </motion.h2>
-          <motion.p
-            className="section-subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="section-eyebrow">Tienda</span>
+          <h2 className="section-title">Nuestros Productos</h2>
+          <p className="section-subtitle">
             Seleccionamos solo lo mejor para la nutrición y el cuidado de tus mascotas.
-          </motion.p>
-        </div>
+          </p>
+        </motion.div>
 
         <div className="products-grid">
           {products.map((product, index) => (
-            <motion.div
-              key={index}
-              className="product-card glass"
-              initial={{ opacity: 0, y: 30 }}
+            <motion.article
+              key={product.name}
+              className="product-card"
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
             >
-              <div className="product-image-container">
-                <img src={product.image} alt={product.name} className="product-image" />
-                {product.tag && <span className="product-tag">{product.tag}</span>}
+              <div className="product-image-wrap">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="product-img"
+                  loading="lazy"
+                />
+                {product.tag && (
+                  <span
+                    className="product-tag"
+                    style={{ background: product.tagColor }}
+                  >
+                    {product.tag}
+                  </span>
+                )}
               </div>
-              <div className="product-content">
+
+              <div className="product-body">
                 <span className="product-category">{product.category}</span>
                 <h3 className="product-name">{product.name}</h3>
                 <div className="product-footer">
                   <span className="product-price">{product.price}</span>
-                  <button className="btn-icon-round" aria-label="Ver más">
-                    <ShoppingBag size={18} />
+                  <button
+                    className="product-add-btn"
+                    aria-label={`Ver más sobre ${product.name}`}
+                  >
+                    <ShoppingBag size={16} />
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
-        <div className="products-cta">
+        <motion.div
+          className="products-cta"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           <button className="btn btn-secondary">
-            Ver catálogo completo <ChevronRight size={20} />
+            Ver catálogo completo
+            <ArrowRight size={16} />
           </button>
-        </div>
+        </motion.div>
       </div>
 
       <style jsx>{`
         .products {
-          background-color: var(--bg-soft);
-          overflow: hidden;
+          background: var(--bg-soft);
           position: relative;
+          overflow: hidden;
         }
 
-        .products::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(var(--primary-hsl), 0.1), transparent);
-        }
+        .section-header { text-align: center; }
 
         .products-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 32px;
-          margin-bottom: 60px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+          margin-bottom: 56px;
         }
 
         .product-card {
-          border-radius: var(--radius-md);
+          background: white;
+          border-radius: var(--radius-lg);
           overflow: hidden;
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          border: 1px solid rgba(255, 255, 255, 0.6);
           display: flex;
           flex-direction: column;
-          height: 100%;
-          background: rgba(255, 255, 255, 0.4);
+          border: 1px solid rgba(13, 148, 136, 0.08);
+          box-shadow: var(--shadow-sm);
+          transition: box-shadow 0.35s ease, border-color 0.35s ease;
+          cursor: pointer;
         }
 
         .product-card:hover {
-          transform: translateY(-12px);
           box-shadow: var(--shadow-premium);
-          background: rgba(255, 255, 255, 0.9);
-          border-color: rgba(var(--primary-hsl), 0.2);
+          border-color: rgba(13, 148, 136, 0.15);
         }
 
-        .product-image-container {
-          height: 260px;
+        .product-image-wrap {
           position: relative;
+          height: 220px;
           overflow: hidden;
-          margin: 12px;
-          border-radius: calc(var(--radius-md) - 8px);
+          margin: 12px 12px 0;
+          border-radius: calc(var(--radius-lg) - 8px);
         }
 
-        .product-image {
+        .product-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .product-card:hover .product-image {
-          transform: scale(1.1);
+        .product-card:hover .product-img {
+          transform: scale(1.07);
         }
 
         .product-tag {
           position: absolute;
-          top: 15px;
-          right: 15px;
-          background: var(--primary);
+          top: 12px;
+          right: 12px;
           color: white;
-          padding: 6px 14px;
+          padding: 5px 12px;
           border-radius: 50px;
-          font-size: 11px;
-          font-weight: 800;
+          font-family: var(--font-body);
+          font-size: 10px;
+          font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-          box-shadow: 0 4px 12px rgba(var(--primary-hsl), 0.3);
-          z-index: 2;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        .product-content {
-          padding: 24px 28px 28px;
+        .product-body {
+          padding: 20px 20px 24px;
+          flex: 1;
           display: flex;
           flex-direction: column;
-          flex-grow: 1;
         }
 
         .product-category {
-          display: block;
-          font-size: 11px;
-          color: var(--primary);
-          font-weight: 800;
+          font-family: var(--font-body);
+          font-size: 10px;
+          font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 1.5px;
-          margin-bottom: 12px;
+          color: var(--primary);
+          margin-bottom: 8px;
         }
 
         .product-name {
-          font-size: 22px;
-          margin-bottom: 24px;
+          font-family: var(--font-heading);
+          font-size: 20px;
+          font-weight: 600;
           color: var(--text-main);
-          line-height: 1.3;
-          font-weight: 700;
+          margin-bottom: 20px;
+          flex: 1;
+          line-height: 1.2;
         }
 
         .product-footer {
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          margin-top: auto;
+          justify-content: space-between;
         }
 
         .product-price {
-          font-size: 24px;
-          font-weight: 900;
+          font-family: var(--font-heading);
+          font-size: 26px;
+          font-weight: 700;
           color: var(--text-main);
           letter-spacing: -0.02em;
         }
 
-        .btn-icon-round {
-          width: 48px;
-          height: 48px;
+        .product-add-btn {
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: var(--bg-white);
-          border: 1px solid #ebebeb;
+          border: 1.5px solid rgba(13, 148, 136, 0.2);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--primary);
           cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: var(--shadow-sm);
+          transition: all 0.25s ease;
         }
 
-        .btn-icon-round:hover {
+        .product-add-btn:hover {
           background: var(--primary);
           color: white;
           border-color: var(--primary);
-          transform: rotate(15deg) scale(1.1);
-          box-shadow: 0 10px 20px rgba(var(--primary-hsl), 0.2);
+          box-shadow: 0 8px 20px rgba(13, 148, 136, 0.3);
         }
 
         .products-cta {
           display: flex;
           justify-content: center;
-          padding-top: 20px;
         }
 
-        @media (max-width: 768px) {
-          .products-grid {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
-          .product-card {
-            margin: 0 auto;
-            max-width: 400px;
-          }
+        @media (max-width: 1100px) {
+          .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+          .products-grid { grid-template-columns: 1fr; gap: 20px; }
         }
       `}</style>
     </section>

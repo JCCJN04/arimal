@@ -1,241 +1,301 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageCircle } from 'lucide-react';
+import { X } from 'lucide-react';
+
+const WhatsAppIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+  </svg>
+);
+
+const CheckItem = ({ children }) => (
+  <li className="check-item">
+    <span className="check-mark">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </span>
+    <span>{children}</span>
+  </li>
+);
 
 const ServiceModal = ({ isOpen, onClose, service }) => {
-    if (!service) return null;
+  if (!service) return null;
 
-    const whatsappMessage = `Hola, quiero información sobre el servicio de ${service.title}`;
-    const whatsappUrl = `https://wa.me/528127711270?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/528127711270?text=${encodeURIComponent(
+    `Hola, quiero información sobre el servicio de ${service.title}`
+  )}`;
 
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="modal-overlay-container">
-                    {/* Backdrop */}
-                    <motion.div
-                        className="modal-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                    />
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="modal-root">
+          <motion.div
+            className="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
-                    {/* Modal Content */}
-                    <motion.div
-                        className="modal-window"
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                    >
-                        <button className="modal-close" onClick={onClose} aria-label="Cerrar modal">
-                            <X size={24} />
-                        </button>
+          <motion.div
+            className="modal-window"
+            role="dialog"
+            aria-modal="true"
+            aria-label={service.title}
+            initial={{ opacity: 0, scale: 0.92, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+          >
+            {/* Close */}
+            <button
+              className="modal-close"
+              onClick={onClose}
+              aria-label="Cerrar"
+            >
+              <X size={20} />
+            </button>
 
-                        <div className="modal-body">
-                            <div className="modal-header">
-                                <div className="service-icon-box" style={{ backgroundColor: service.color }}>
-                                    {service.icon}
-                                </div>
-                                <div>
-                                    <h2 className="modal-title">{service.title}</h2>
-                                    <p className="modal-subtitle">{service.desc}</p>
-                                </div>
-                            </div>
+            {/* Header */}
+            <div className="modal-header">
+              <div
+                className="modal-service-icon"
+                style={{ background: service.color }}
+                aria-hidden="true"
+              >
+                {service.icon}
+              </div>
+              <div>
+                <h2 className="modal-title">{service.title}</h2>
+                <p className="modal-subtitle">{service.desc}</p>
+              </div>
+            </div>
 
-                            <div className="modal-info-grid">
-                                <div className="info-section">
-                                    <h3 className="info-label">¿Qué incluye?</h3>
-                                    <ul className="info-list">
-                                        {service.details?.includes?.map((item, i) => (
-                                            <li key={i}>{item}</li>
-                                        ))}
-                                    </ul>
-                                </div>
+            {/* Body */}
+            <div className="modal-body">
+              <div className="modal-grid">
+                <div className="modal-section">
+                  <h3 className="modal-section-label">¿Qué incluye?</h3>
+                  <ul className="check-list">
+                    {service.details?.includes?.map((item, i) => (
+                      <CheckItem key={i}>{item}</CheckItem>
+                    ))}
+                  </ul>
+                </div>
+                <div className="modal-section">
+                  <h3 className="modal-section-label">Beneficios</h3>
+                  <ul className="check-list">
+                    {service.details?.benefits?.map((item, i) => (
+                      <CheckItem key={i}>{item}</CheckItem>
+                    ))}
+                  </ul>
+                </div>
+              </div>
 
-                                <div className="info-section">
-                                    <h3 className="info-label">Beneficios</h3>
-                                    <ul className="info-list">
-                                        {service.details?.benefits?.map((item, i) => (
-                                            <li key={i}>{item}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
+              {(service.details?.duration || service.details?.frequency) && (
+                <div className="modal-meta">
+                  {service.details?.duration && (
+                    <div className="meta-row">
+                      <span className="meta-key">Duración estimada</span>
+                      <span className="meta-val">{service.details.duration}</span>
+                    </div>
+                  )}
+                  {service.details?.frequency && (
+                    <div className="meta-row">
+                      <span className="meta-key">Frecuencia recomendada</span>
+                      <span className="meta-val">{service.details.frequency}</span>
+                    </div>
+                  )}
+                </div>
+              )}
 
-                            <div className="modal-meta">
-                                {service.details?.duration && (
-                                    <div className="meta-item">
-                                        <span className="meta-label">Duración estimada:</span>
-                                        <span className="meta-value">{service.details.duration}</span>
-                                    </div>
-                                )}
-                                {service.details?.frequency && (
-                                    <div className="meta-item">
-                                        <span className="meta-label">Frecuencia recomendada:</span>
-                                        <span className="meta-value">{service.details.frequency}</span>
-                                    </div>
-                                )}
-                            </div>
+              <div className="modal-actions">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="modal-cta-btn"
+                >
+                  <WhatsAppIcon />
+                  Agendar por WhatsApp
+                </a>
+              </div>
+            </div>
+          </motion.div>
 
-                            <div className="modal-actions">
-                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-modal-wa">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 448 512" fill="currentColor" style={{ marginRight: '10px' }}>
-                                        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.4-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.6-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.6-9.2 1.9-3.7 1-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-                                    </svg>
-                                    Agendar por WhatsApp
-                                </a>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    <style jsx>{`
-            .modal-overlay-container {
+          <style jsx>{`
+            .modal-root {
               position: fixed;
               inset: 0;
+              z-index: 3000;
               display: flex;
               align-items: center;
               justify-content: center;
-              z-index: 2000;
               padding: 20px;
             }
 
             .modal-backdrop {
               position: absolute;
               inset: 0;
-              background: rgba(0, 0, 0, 0.5);
-              backdrop-filter: blur(5px);
+              background: rgba(19, 78, 74, 0.4);
+              backdrop-filter: blur(8px);
+              -webkit-backdrop-filter: blur(8px);
             }
 
             .modal-window {
               position: relative;
               background: white;
               width: 100%;
-              max-width: 600px;
-              border-radius: 24px;
-              box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-              overflow: hidden;
-              z-index: 2001;
+              max-width: 580px;
+              max-height: 90vh;
+              overflow-y: auto;
+              border-radius: var(--radius-xl);
+              box-shadow: 0 32px 80px rgba(19, 78, 74, 0.25);
+              z-index: 1;
+              border: 1px solid rgba(13, 148, 136, 0.1);
             }
 
             .modal-close {
               position: absolute;
               top: 20px;
               right: 20px;
-              background: #f5f5f5;
-              border: none;
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
+              width: 38px;
+              height: 38px;
+              border-radius: 10px;
+              background: var(--bg-soft);
+              border: 1px solid rgba(13, 148, 136, 0.1);
               display: flex;
               align-items: center;
               justify-content: center;
               color: var(--text-muted);
               cursor: pointer;
               transition: all 0.2s ease;
+              z-index: 10;
             }
 
             .modal-close:hover {
-              background: #eee;
-              color: var(--text-main);
+              background: var(--primary-light);
+              color: var(--primary);
+              border-color: var(--primary-light);
               transform: rotate(90deg);
-            }
-
-            .modal-body {
-              padding: 40px;
             }
 
             .modal-header {
               display: flex;
               gap: 20px;
-              align-items: center;
-              margin-bottom: 32px;
+              align-items: flex-start;
+              padding: 36px 36px 0;
             }
 
-            .service-icon-box {
-              width: 64px;
-              height: 64px;
+            .modal-service-icon {
+              width: 60px;
+              height: 60px;
               border-radius: 16px;
               display: flex;
               align-items: center;
               justify-content: center;
               color: white;
               flex-shrink: 0;
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             }
 
             .modal-title {
-              font-size: 28px;
-              font-weight: 800;
+              font-family: var(--font-heading);
+              font-size: 26px;
+              font-weight: 700;
               color: var(--text-main);
-              line-height: 1.2;
-              margin-bottom: 4px;
+              line-height: 1.1;
+              margin-bottom: 6px;
+              letter-spacing: -0.01em;
             }
 
             .modal-subtitle {
+              font-family: var(--font-body);
+              font-size: 14px;
               color: var(--text-muted);
-              font-size: 16px;
+              line-height: 1.6;
             }
 
-            .modal-info-grid {
+            .modal-body {
+              padding: 28px 36px 36px;
+            }
+
+            .modal-grid {
               display: grid;
               grid-template-columns: 1fr 1fr;
-              gap: 30px;
-              margin-bottom: 32px;
+              gap: 28px;
+              margin-bottom: 24px;
             }
 
-            .info-label {
-              font-size: 14px;
-              font-weight: 800;
+            .modal-section-label {
+              font-family: var(--font-body);
+              font-size: 11px;
+              font-weight: 700;
               text-transform: uppercase;
-              letter-spacing: 1px;
+              letter-spacing: 1.2px;
               color: var(--primary);
-              margin-bottom: 12px;
+              margin-bottom: 14px;
             }
 
-            .info-list {
+            .check-list {
               list-style: none;
-              padding: 0;
-              margin: 0;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
             }
 
-            .info-list li {
-              font-size: 15px;
-              color: var(--text-main);
-              margin-bottom: 8px;
+            .check-item {
+              display: flex;
+              align-items: flex-start;
+              gap: 10px;
+              font-family: var(--font-body);
+              font-size: 14px;
+              color: var(--text-body);
+              line-height: 1.5;
+            }
+
+            .check-mark {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: var(--primary-soft);
+              color: var(--primary);
               display: flex;
               align-items: center;
-              gap: 10px;
-            }
-
-            .info-list li::before {
-              content: '✓';
-              color: var(--primary);
-              font-weight: 800;
+              justify-content: center;
+              flex-shrink: 0;
+              margin-top: 1px;
+              border: 1px solid var(--primary-light);
             }
 
             .modal-meta {
-              background: #f8faf9;
-              padding: 24px;
-              border-radius: 16px;
-              margin-bottom: 32px;
+              background: var(--bg-soft);
+              border-radius: var(--radius-md);
+              padding: 20px 24px;
               display: flex;
               flex-direction: column;
               gap: 12px;
+              margin-bottom: 24px;
+              border: 1px solid rgba(13, 148, 136, 0.08);
             }
 
-            .meta-item {
+            .meta-row {
               display: flex;
               justify-content: space-between;
-              font-size: 15px;
+              align-items: center;
+              font-family: var(--font-body);
+              font-size: 14px;
             }
 
-            .meta-label {
+            .meta-key {
               color: var(--text-muted);
-              font-weight: 500;
+              font-weight: 400;
             }
 
-            .meta-value {
+            .meta-val {
               color: var(--text-main);
               font-weight: 700;
             }
@@ -245,42 +305,37 @@ const ServiceModal = ({ isOpen, onClose, service }) => {
               justify-content: center;
             }
 
-            .btn-modal-wa {
+            .modal-cta-btn {
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              padding: 15px 36px;
               background: #25D366;
               color: white;
-              padding: 16px 36px;
-              border-radius: 16px;
+              border-radius: 50px;
+              font-family: var(--font-body);
+              font-size: 15px;
               font-weight: 700;
-              font-size: 17px;
-              display: flex;
-              align-items: center;
-              text-decoration: none;
-              transition: all 0.3s ease;
-              box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+              transition: all 0.25s ease;
+              box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
             }
 
-            .btn-modal-wa:hover {
+            .modal-cta-btn:hover {
               background: #1ebe5d;
-              transform: translateY(-3px);
-              box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
+              transform: translateY(-2px);
+              box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
             }
 
-            @media (max-width: 600px) {
-              .modal-info-grid {
-                grid-template-columns: 1fr;
-              }
-              .modal-body {
-                padding: 30px 24px;
-              }
-              .modal-title {
-                font-size: 24px;
-              }
+            @media (max-width: 560px) {
+              .modal-header { padding: 28px 24px 0; }
+              .modal-body { padding: 24px 24px 28px; }
+              .modal-grid { grid-template-columns: 1fr; }
             }
           `}</style>
-                </div>
-            )}
-        </AnimatePresence>
-    );
+        </div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default ServiceModal;

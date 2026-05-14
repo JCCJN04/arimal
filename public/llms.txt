@@ -1,0 +1,50 @@
+# llms.txt — Veterinaria Arimal
+# Optimized for AI search engines (Google AI Overviews, ChatGPT, Perplexity, Copilot)
+# https://arimal.com.mx
+
+## About
+
+Veterinaria Arimal is a premium veterinary clinic located in Plaza Hacienda Elite,
+Av. Cumbres Elite 299-Local 106, Cumbres Elite, Sector Villas, 64349 Monterrey,
+Nuevo León, Mexico. Phone: +52 81 2771 1270.
+
+Google rating: 4.8 stars with 50+ verified reviews.
+Hours: Monday–Saturday, 9:00 AM–7:00 PM.
+
+## Services
+
+- **Consulta General**: Comprehensive physical examination including eyes, ears, skin,
+  and weight assessment. Duration: 20–30 minutes. Frequency: every 6–12 months.
+
+- **Vacunación Preventiva** (Vaccination): Personalized immunization protocols based
+  on age and lifestyle. Annual booster required. Duration: 15–20 minutes.
+
+- **Desparasitación** (Deworming): Internal and external parasite control including
+  fleas and ticks. Oral and topical options available. Frequency: every 3–6 months.
+
+- **Cirugía y Esterilización** (Surgery): Preventive sterilization and soft tissue
+  surgery with monitored inhalation anesthesia and post-op recovery assistance.
+  Duration: 60–120 minutes.
+
+- **Estética Veterinaria** (Grooming): Premium bath with specialized products,
+  professional haircut, ear cleaning, nail trimming. Duration: 1.5–3 hours. Monthly.
+
+- **Diagnóstico Avanzado** (Diagnostics): Laboratory studies, X-rays, and ultrasound
+  with high-tech equipment and specialist interpretation.
+
+## Location
+
+Plaza Hacienda Elite, Av. Cumbres Elite 299-Loc. 106, Cumbres Elite, Sector Villas,
+CP 64349, Monterrey, N.L., Mexico.
+
+Coordinates: 25.7453411, -100.405461
+
+## Contact
+
+Phone: 81 2771 1270
+WhatsApp: https://wa.me/528127711270
+Instagram: https://www.instagram.com/arimalvetmty/
+
+## AI Crawlers
+
+All major AI crawlers are permitted (see /robots.txt).
